@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="./web3.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+		<h1>公司员工薪酬支付系统</h1>
+        <p>一个管理公司员工工资计算及支付的交易所。</p>
+		<p>Project of Blockchain Tech</p>
+
+
+		<dl id="box">
+			<dd class='box1'>
+        <div class='function-name'>Add New employee</div>
+        <div style="margin-bottom:30px;">Name:     <input id="name-new" type="text"><br></div>
+        <div style="margin-bottom:30px;">salary: <input id="salary-new" type="text"><br></div>
+        <button id="Add" class="btn" >Add</button>
+			</dd>
+
+
+			<dd class='box2'>
+        <div class='function-name'>Delete an employee</div>
+        <div style="margin-bottom:30px;">Name:     <input id="name-out" type="text"><br></div>
+				<button id="Remove" class="btn">Remove</button>
+			</dd>
+
+
+			<dd class='box3'>
+        <div class='function-name'>update an employee</div>
+        <div style="margin-bottom:30px;">Name:     <input id="name-find" type="text"><br></div>
+        <div style="margin-bottom:30px;">new-salary: <input id="salary-update" type="text"><br></div>
+				<button id="Update" class="btn">Update</button>
+			</dd>
+
+
+			<dd class='box4'>
+        <div class='function-name'>paid for the employee</div>
+				<div style="margin-bottom:30px;">Name:     <input id="name-pay" type="text"><br></div>
+        <button id="Pay" class="btn">Pay</button>
+		</dl>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script>
+        isStarted = false;
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:30303"));
+        }
+
+		web3.eth.defaultAccount = web3.eth.accounts[0];
+        //personal.unlockAccount(web3.eth.defaultAccount)
+
+      var employeeInteration = web3.eth.contract([
+      {
+        "constant":false,
+        "inputs":[],
+        "name":"hasEnoughFund",
+        "outputs":[
+          {
+            "name":"",
+            "type":"bool"
+          }
+        ],
+        "payable":false,
+        "stateMutability":"nonpayable",
+        "type":"function"
+      },
+      {
+        "constant":false,
+        "inputs":[],
+        "name":"calculateRunway",
+        "outputs":[
+          {
+            "name":"",
+            "type":"uint256"
+          }
+        ],
+        "payable":false,
+        "stateMutability":"nonpayable",
+        "type":"function"
+      },
+      {
+        "constant":false,
+        "inputs":[
+          {
+            "name":"employeeId",
+            "type":"address"
+          },
+          {
+            "name":"salary",
+            "type":"uint256"
+          }
+        ],
+        "name":"updateEmployee",
+        "outputs":[],
+        "payable":false,
+        "stateMutability":"nonpayable",
+        "type":"function"
+      },
+      {
+        "constant":false,
+        "inputs":[],
+        "name":"addFund",
+        "outputs":[
+          {
+            "name":"",
+            "type":"uint256"
+          }
+        ],
+        "payable":true,
+        "stateMutability":"payable",
+        "type":"function"
+      },
+      {
+        "constant":false,
+        "inputs":[],
+        "name":"getPaid",
+        "outputs":[],
+        "payable":false,
+        "stateMutability":"nonpayable",
+        "type":"function"
+      },
+      {
+        "constant":false,
+        "inputs":[
+          {
+            "name":"employeeId",
+            "type":"address"
+          }
+        ],
+        "name":"removeEmployee",
+        "outputs":[],
+        "payable":false,
+        "stateMutability":"nonpayable",
+        "type":"function"
+      },
+      {
+        "constant":false,
+        "inputs":[
+          {
+            "name":"employeeId",
+            "type":"address"
+          },
+          {
+            "name":"salary",
+            "type":"uint256"
+          }
+        ],
+        "name":"addEmployee",
+        "outputs":[],
+        "payable":false,
+        "stateMutability":"nonpayable",
+        "type":"function"
+      },
+      {
+        "inputs":[],
+        "payable":false,
+        "stateMutability":"nonpayable",
+        "type":"constructor"
+      }]);
+
+        var employeeInteraction  = web3.eth.contract(payrollContract).at(0x801Ca8Aa5C9b6b9f08239c2621e92346c40B7572)
+
+        var allEvent = employeeInteraction.allEvents({ fromBlock: 0, toBlock: 'latest' });
+
+
+        $("#Add").click(function(){
+            employeeInteraction.addEmployee($("#name-new").val(), $("#salary-new").val(), function(error,result){});
+            alert("加入员工成功");
+            $("#name-new").val("");
+            $("#salary").val("");
+        });
+        $("#Remove").click(function(){
+            employeeInteraction.removeEmployee($("#name-out").val(),  function(error,result){});
+            alert("加入员工成功");
+            $("#name-new").val("");
+            $("#salary").val("");
+        });
+        $("#Update").click(function(){
+            employeeInteraction.updateEmployee($("#name-find").val(),  function(error,result){});
+            alert("加入员工成功");
+            $("#name-new").val("");
+            $("#salary").val("");
+        });
+        $("#Pay").click(function(){
+            employeeInteraction._partialPaid($("#name-pay").val(),  function(error,result){});
+            alert("发放工资成功");
+            $("#name-pay").val("");
+        });
+
+    </script>
+
+</body>
+</html>

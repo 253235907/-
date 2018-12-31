@@ -1,0 +1,88 @@
+body {
+    background-color:#F0F0F0;
+    padding: 2em;
+    font-family: 'Raleway','Source Sans Pro', 'Arial';
+    background: url(./img.jpg);
+    background-size: cover;
+}
+.container {
+    width: 80%;
+    margin: 0% 0% 0% 10%;
+    text-align: center;
+}
+
+label {
+    display:block;
+    margin-bottom:10px;
+}
+.button {
+    width: 300px;
+    margin: 2em 0;
+    padding: 1em 4em;
+    display:block;
+}
+
+.box1{
+    width: 30%;
+    height: 150px;
+    margin: 3px 3px 10px 3px;
+    left:18%;
+    position: absolute;
+}
+.box3{
+    width: 30%;
+    height: 150px;
+    margin: 3px 3px 10px 3px;
+    right:18%;
+    position: absolute;
+}
+.box2{
+    width: 30%;
+    height: 150px;
+    margin: 3px 3px 10px 3px;
+    left:18%;
+    position: absolute;
+    top: 50%;
+}
+.box4{
+    width: 30%;
+    height: 150px;
+    margin: 3px 3px 10px 3px;
+    right:18%;
+    position: absolute;
+    top: 50%;
+}
+.function-name{
+    font-size: 20px;
+    padding: 10px 10px 10px 0px;
+    color: blue;
+}
+
+
+input{
+    width: 100px;
+    height: 27px;
+    font-size: 16px;
+}
+
+.btn{
+    background-color: rgb(30, 160, 204);
+    border: none;
+    color: white;
+    padding: 7px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.btn:hover{
+    background-color: rgb(27, 187, 240);
+}
+
+.btn:active{
+    background-color: rgb(30, 160, 204);
+}
+
+#visual1, #visual2{
+    visibility: hidden;
+}
